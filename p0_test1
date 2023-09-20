@@ -18,7 +18,7 @@ def get_terrain(tile):
     print(f"H: {hue}, S: {saturation}, V: {value}") #Change value <= (less or equal to)
     if 20 <= hue <= 29 and 219 <= saturation <= 255 and 100 <= value <= 210:
         return "Field"
-    if 30 <= hue <= 77 and 65 <= saturation <= 215 and 34 <= value <= 78:
+    if 29 <= hue <= 77 and 65 <= saturation <= 223 and 25 <= value <= 78:
         return "Forest"
     if 100 <= hue <= 110 and 220 <= saturation <= 260 and 108 <= value <= 205:
         return "Lake"
@@ -37,7 +37,7 @@ def main():
     print("+-------------------------------+")
     print("| King Domino points calculator |")
     print("+-------------------------------+")
-    image_path = r"C:\Users\marti\Skrivebord\King Domino dataset\1.jpg"
+    image_path = r"C:\Users\marti\Skrivebord\King Domino dataset\25.jpg"
     if not os.path.isfile(image_path):
         print("Image not found")
         return
@@ -57,6 +57,8 @@ def main():
     mine_count = 0
     home_count = 0
 
+    min_lake_hue = float('inf')
+
     for y, row in enumerate(tiles):
         for x, tile in enumerate(row):
             print(f"Tile ({x}, {y}):")
@@ -71,6 +73,12 @@ def main():
                 forest_count += 1
             if terrain == "Lake":
                 lake_count += 1
+                # Calculate the median hue for the current "Lake" tile
+                hsv_tile = cv.cvtColor(tile, cv.COLOR_BGR2HSV)
+                hue = np.median(hsv_tile[:, :, 0])
+                # Update the minimum hue if necessary
+                if hue < min_lake_hue:
+                    min_lake_hue = hue
             if terrain == "Grassland":
                 grassland_count += 1
             if terrain == "Swamp":
@@ -106,6 +114,8 @@ def main():
     print(f"'Swamp': \t{swamp_count}")
     print(f"'Mine': \t{mine_count}")
     print(f"'Home': \t{home_count}")
+
+    
 
 if __name__ == "__main__":
     main()
