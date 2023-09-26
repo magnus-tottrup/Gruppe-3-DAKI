@@ -73,12 +73,6 @@ def main():
                 forest_count += 1
             if terrain == "Lake":
                 lake_count += 1
-                # Calculate the median hue for the current "Lake" tile
-                hsv_tile = cv.cvtColor(tile, cv.COLOR_BGR2HSV)
-                hue = np.median(hsv_tile[:, :, 0])
-                # Update the minimum hue if necessary
-                if hue < min_lake_hue:
-                    min_lake_hue = hue
             if terrain == "Grassland":
                 grassland_count += 1
             if terrain == "Swamp":
