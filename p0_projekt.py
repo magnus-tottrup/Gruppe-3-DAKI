@@ -37,7 +37,7 @@ def main():
     print("+-------------------------------+")
     print("| King Domino points calculator |")
     print("+-------------------------------+")
-    image_path = r"C:\Users\Admin\Skrivebord\King Domino dataset\73.jpg"
+    image_path = r"C:\Users\Admin\Skrivebord\King Domino dataset\61.jpg"
     if not os.path.isfile(image_path):
         print("Image not found")
         return
@@ -56,6 +56,7 @@ def main():
     swamp_count = 0
     mine_count = 0
     home_count = 0
+    unknown_count = 0
 
     for y, row in enumerate(tiles):
         for x, tile in enumerate(row):
@@ -80,6 +81,9 @@ def main():
                 mine_count += 1
             if terrain == "Home":
                 home_count += 1
+            if terrain == "Unknown":
+                unknown_count += 1
+
 
             # Overlay the HSV values on the image with separate lines
             x1, y1, x2, y2 = x * 100, y * 100, (x + 1) * 100, (y + 1) * 100
@@ -111,6 +115,7 @@ def main():
     print(f"'Swamp': \t{swamp_count}")
     print(f"'Mine': \t{mine_count}")
     print(f"'Home': \t{home_count}")
+    print(f"'Unknown': \t{unknown_count}")
 
     
 
